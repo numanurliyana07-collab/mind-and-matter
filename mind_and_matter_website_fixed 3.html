@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mind & Matter | Drugs, Brain & Body</title>
+<meta name="description" content="An interactive science education website about psychoactive drugs, the nervous system, health effects, and prevention.">
+<style>
+:root{--pink:#f6b7c8;--pink2:#ffe5ec;--rose:#b64f70;--brown:#563c32;--brown2:#826454;--cream:#fffaf5;--white:#fff;--shadow:0 12px 30px #563c3214}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--brown);font-family: "Trebuchet MS",Arial,sans-serif;line-height:1.65}
+header{position:sticky;top:0;z-index:5;background:#fffaf5ed;backdrop-filter:blur(12px);border-bottom:1px solid #eed8d0}
+.nav{max-width:1120px;margin:auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{font-weight:900;font-size:1.12rem;letter-spacing:.3px}.brand span{color:var(--rose)}
+nav{display:flex;gap:16px;flex-wrap:wrap}nav a{color:var(--brown);text-decoration:none;font-size:.9rem;font-weight:700}nav a:hover{color:var(--rose)}
+button,.btn{border:0;border-radius:999px;background:var(--pink);color:#57333e;font-weight:800;padding:12px 18px;cursor:pointer;box-shadow:0 5px 0 #d88da3;transition:transform .2s,background .2s}
+button:hover,.btn:hover{transform:translateY(-2px);background:#f29db5}button:active,.btn:active{transform:translateY(2px);box-shadow:0 2px 0 #d88da3}
+.hero{overflow:hidden;position:relative;background:linear-gradient(135deg,#ffe5ec 0%,#fff5ed 65%,#f5d8c8 100%);padding:80px 22px 68px}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:#f6b7c866;animation:float 6s ease-in-out infinite}.hero:before{width:170px;height:170px;right:8%;top:35px}.hero:after{width:80px;height:80px;right:25%;bottom:20px;animation-delay:-2s}
+.hero-inner{max-width:1120px;margin:auto;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;position:relative;z-index:1}
+.eyebrow{display:inline-block;border-radius:999px;background:#fff;padding:7px 13px;font-size:.78rem;font-weight:900;letter-spacing:1px;color:var(--rose)}
+h1{font-size:clamp(2.4rem,5vw,4.8rem);line-height:1.02;margin:18px 0;color:var(--brown);letter-spacing:-2px}h1 em{font-style:normal;color:var(--rose)}
+.lead{font-size:1.1rem;max-width:640px;color:#71594e}
+.hero-art{background:#fff9f7;border:2px solid white;border-radius:36px;padding:24px;box-shadow:var(--shadow);transform:rotate(2deg);animation:pop .8s ease both}
+.brain{font-size:6rem;text-align:center;line-height:1.25;filter:drop-shadow(0 7px 0 #f4c4d0)}
+.bubble{background:white;border:2px solid #f5cad5;border-radius:22px 22px 22px 5px;padding:15px 18px;margin:12px 0;box-shadow:0 5px 0 #f9e4e9;position:relative}
+.bubble strong{color:var(--rose)}.bubble small{display:block;color:#8b7165;margin-top:5px}
+section{max-width:1120px;margin:auto;padding:68px 22px}
+.section-head{max-width:720px;margin-bottom:28px}.section-head h2{font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.1;margin:8px 0 12px}.section-head p{color:#80685b}
+.kicker{color:var(--rose);font-weight:900;font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:white;border:1px solid #f0ddd5;border-radius:24px;padding:23px;box-shadow:var(--shadow);transition:transform .25s;animation:fadeUp .65s both}
+.card:hover{transform:translateY(-5px)}.card .emoji{font-size:2rem}.card h3{margin:8px 0;color:var(--brown)}.card p{margin:0;color:#775f53}
+.tag{display:inline-block;background:var(--pink2);color:#8f3c59;font-size:.75rem;font-weight:900;padding:5px 9px;border-radius:999px;margin-top:12px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+.panel{background:#fff;border:1px solid #f0ddd5;border-radius:26px;padding:25px;box-shadow:var(--shadow)}
+.timeline{display:grid;gap:14px}.step{display:grid;grid-template-columns:45px 1fr;gap:12px;align-items:start}.num{height:40px;width:40px;border-radius:50%;background:var(--pink2);display:grid;place-items:center;color:var(--rose);font-weight:900}
+.callout{background:#f5e0d3;border-radius:24px;padding:23px}.callout h3{margin-top:0}
+.pill-row{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.pill{background:#fff;border:1px solid #e9cfc4;border-radius:999px;padding:8px 12px;color:var(--brown);font-weight:800;cursor:pointer}.pill.active{background:var(--rose);color:white;border-color:var(--rose)}
+.detail-box{min-height:170px;background:#fff6f8;border:2px dashed #e8a5b8;border-radius:24px;padding:20px}
+.quiz-question{font-size:1.12rem;font-weight:900}.answers{display:grid;gap:9px;margin:16px 0}.answers button{box-shadow:none;text-align:left;background:#fff0f4;border:1px solid #f0c5d1}.answers button:hover{background:#ffdce6}
+.feedback{font-weight:800;min-height:28px;color:var(--rose)}
+.refs li{margin:12px 0;overflow-wrap:anywhere}.refs a{color:#9b3e5c}
+footer{background:var(--brown);color:#fff4ef;padding:32px 22px;text-align:center}footer p{margin:6px}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}@keyframes pop{from{opacity:0;transform:translateY(18px) rotate(2deg) scale(.97)}to{opacity:1;transform:translateY(0) rotate(2deg) scale(1)}}@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:800px){.hero-inner,.two-col{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.hero{padding-top:52px}nav{gap:9px}nav a{font-size:.8rem}}
+@media(max-width:540px){.grid{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}.hero-art{transform:none}.brain{font-size:4.5rem}section{padding:48px 18px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+/* Added learning visuals and content improvements */
+.infographic{background:#fff;border:1px solid #f0ddd5;border-radius:26px;padding:24px;margin-top:22px;box-shadow:var(--shadow)}
+.infographic h3{margin-top:0}
+.flowline{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;align-items:stretch;margin:18px 0}
+.flowstep{background:#fff3f6;border:1px solid #efc8d3;border-radius:18px;padding:14px 10px;text-align:center;font-weight:800;min-width:0}
+.flowstep .symbol{display:block;font-size:1.8rem;margin-bottom:6px}
+.flowstep small{display:block;font-weight:500;color:#775f53;line-height:1.4;margin-top:5px}
+.effect-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.94rem}
+.effect-table th,.effect-table td{border:1px solid #ecd8d0;padding:11px;text-align:left;vertical-align:top}
+.effect-table th{background:#ffe5ec;color:#70404f}
+.effect-table tr:nth-child(even) td{background:#fffaf8}
+.citation{font-size:.9rem;color:#80685b;margin-top:12px}
+.conclusion{background:linear-gradient(135deg,#ffe5ec,#fff5ed);border:1px solid #f0cbd5;border-radius:26px;padding:25px}
+.brain-scan-note{border-left:4px solid var(--rose);padding:10px 14px;background:#fff5f7;border-radius:0 12px 12px 0;margin-top:14px}
+@media(max-width:700px){.flowline{grid-template-columns:1fr}.flowstep{display:grid;grid-template-columns:45px 1fr;text-align:left;align-items:center;gap:10px}.flowstep .symbol{margin:0}.effect-table{font-size:.84rem}.effect-table th,.effect-table td{padding:8px}}
+
+
+/* Interactive science motion: lightweight CSS/SVG, no external libraries */
+.card{transform-style:preserve-3d;perspective:900px}
+.card:hover{transform:perspective(900px) translateY(-6px) rotateX(1.5deg) rotateY(-1.5deg)}
+.hero-art,.panel,.infographic{transform-style:preserve-3d}
+.hero-art:after{content:"✦  ·  ○  ·  ✧";display:block;text-align:center;color:#b64f70;letter-spacing:18px;opacity:.55;animation:moleculeDrift 7s ease-in-out infinite}
+@keyframes moleculeDrift{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(5px,-7px,0) rotate(5deg)}}
+.neuron-lab{margin-top:24px;background:radial-gradient(circle at 50% 25%,#28265a 0%,#17152f 56%,#111024 100%);border:1px solid #7770bd;border-radius:28px;padding:22px;color:#f8f5ff;box-shadow:0 18px 38px #30245c30;overflow:hidden;position:relative}
+.neuron-lab:before,.neuron-lab:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;filter:blur(30px);opacity:.22;pointer-events:none;background:#6b8cff;animation:orbFloat 8s ease-in-out infinite}
+.neuron-lab:before{top:-65px;right:8%}.neuron-lab:after{bottom:-90px;left:12%;background:#d16dff;animation-delay:-3s}
+@keyframes orbFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,12px)}}
+.neuron-lab h3,.neuron-lab p,.neuron-lab .neuron-controls,.neuron-lab .neuron-stage,.neuron-lab .neuron-labels{position:relative;z-index:1}
+.neuron-lab h3{color:#fff;margin:0 0 6px}.neuron-lab .subcopy{color:#d9d5ff;margin-top:0}
+.neuron-stage{background:linear-gradient(145deg,#25224d,#17162f);border:1px solid #6661a4;border-radius:22px;padding:8px;box-shadow:inset 0 0 28px #9c83ff16}
+.neuron-stage svg{display:block;width:100%;height:auto;max-height:300px}
+.neuron-path{fill:none;stroke:#8d8cff;stroke-width:9;stroke-linecap:round;filter:drop-shadow(0 0 6px #8f8cff)}
+.neuron-branch{fill:none;stroke:#9b8fff;stroke-width:5;stroke-linecap:round;opacity:.9}
+.signal-line{fill:none;stroke:#76efff;stroke-width:4;stroke-dasharray:7 22;stroke-linecap:round;filter:drop-shadow(0 0 7px #68eaff);animation:signalTravel 1.1s linear infinite}
+@keyframes signalTravel{to{stroke-dashoffset:-58}}
+.neuro-dot{fill:#ff9fe8;stroke:#fff;stroke-width:1.5;filter:drop-shadow(0 0 8px #ff7ddd);animation:dotPulse 1.4s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{opacity:.55;transform:scale(.9);transform-origin:center}50%{opacity:1;transform:scale(1.25);transform-origin:center}}
+.neuron-lab.paused .signal-line,.neuron-lab.paused .neuro-dot,.neuron-lab.paused .neuron-lab:before{animation-play-state:paused}
+.neuron-controls{display:flex;gap:9px;flex-wrap:wrap;margin:14px 0}.neuron-controls button{background:#dcd9ff;color:#29244f;box-shadow:0 4px 0 #8d86d7}.neuron-controls button.secondary{background:#fff0f6;color:#783a60;box-shadow:0 4px 0 #c98aa7}
+.neuron-labels{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}.neuron-labels button{background:#28254d;color:#f8f5ff;border:1px solid #6f69b0;box-shadow:none;padding:8px 12px}.neuron-labels button.active{background:#7e73db;color:white;border-color:#b7adff}
+.neuron-caption{background:#25224b;border:1px solid #625ca0;border-radius:16px;padding:14px;color:#e8e4ff;min-height:76px}.neuron-caption strong{color:#9df2ff}
+.brain-model{background:radial-gradient(circle at 50% 35%,#fff8fc,#f5e4f4 70%);border:1px solid #efc9da;border-radius:22px;padding:12px;margin-top:16px;text-align:center;overflow:hidden}
+.brain-model svg{width:min(100%,430px);height:auto;filter:drop-shadow(0 12px 8px #a75c8c33);animation:brainHover 5s ease-in-out infinite;transform-origin:center}
+@keyframes brainHover{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}
+.brain-model .brain-label{font-size:.85rem;color:#77516d;font-weight:800}
+.pet-step{position:relative;overflow:hidden}.pet-step:after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:24%;background:linear-gradient(90deg,transparent,#ffffff66,transparent);transform:skewX(-18deg);animation:petSweep 5s ease-in-out infinite;pointer-events:none}
+@keyframes petSweep{0%,35%{left:-40%}75%,100%{left:125%}}
+@media(prefers-reduced-motion:reduce){.hero-art:after,.neuron-lab:before,.neuron-lab:after,.signal-line,.neuro-dot,.brain-model svg,.pet-step:after{animation:none!important}}
+
+/* Cocaine and dopamine interactive animation */
+.cocaine-lab {
+  margin-top: 26px;
+  padding: 24px;
+  border-radius: 28px;
+  background: radial-gradient(circle at top, #38295d, #17152f 75%);
+  color: #fff;
+  border: 2px solid #c5a4ff;
+  box-shadow: 0 15px 35px #563c3226;
+  overflow: hidden;
+}
+
+.cocaine-lab h3 {
+  color: #f5eaff;
+  margin-top: 0;
+}
+
+.cocaine-lab > p {
+  color: #e0d7ff;
+}
+
+.cocaine-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 18px 0;
+}
+
+.cocaine-controls button {
+  background: #e9ddff;
+  color: #342450;
+  box-shadow: 0 4px 0 #9a7acb;
+  font-size: .88rem;
+}
+
+.cocaine-controls button.active {
+  background: #ffb6df;
+  color: #532346;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.cocaine-controls button.pause-btn {
+  background: #c8f5ff;
+  color: #183e55;
+  box-shadow: 0 4px 0 #75bdcf;
+}
+
+.cocaine-canvas-wrap {
+  background: #201b40;
+  border: 1px solid #7165a8;
+  border-radius: 20px;
+  padding: 8px;
+  overflow: hidden;
+}
+
+#cocaineCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+
+.cocaine-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 15px;
+  font-size: .82rem;
+  color: #e0d7ff;
+  margin: 14px 0;
+}
+
+.cocaine-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cocaine-status {
+  padding: 16px;
+  border-radius: 17px;
+  background: #302650;
+  border: 1px solid #7565a8;
+  color: #f7efff;
+  min-height: 90px;
+}
+
+.cocaine-status strong {
+  color: #9ff4ff;
+}
+
+.cocaine-meter {
+  height: 12px;
+  margin-top: 14px;
+  border-radius: 99px;
+  background: #4c416d;
+  overflow: hidden;
+}
+
+.cocaine-meter-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #7cf4c8, #ffdf82, #ff8ed2);
+  border-radius: inherit;
+  transition: width .25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cocaine-meter-fill {
+    transition: none;
+  }
+}
+
+/* Fix Cocaine vs Dopamine simulation size */
+#cocaineLab {
+    width: calc(100% - 44px);
+    max-width: 820px;
+    box-sizing: border-box;
+    padding: 18px;
+    margin: 22px auto 48px;
+}
+
+/* Keep canvas proportional */
+#cocaineCanvas {
+    display: block;
+    width: 100%;
+    max-width: 620px;
+    height: auto;
+    aspect-ratio: 760 / 340;
+    box-sizing: border-box;
+    border-radius: 14px;
+    margin: 0 auto;
+}
+
+@media (max-width: 540px) {
+    #cocaineLab {
+        width: calc(100% - 36px);
+        padding: 14px;
+        margin: 20px auto 38px;
+    }
+    #cocaineLab h3 { font-size: 1.15rem; }
+    #cocaineLab > p { font-size: .92rem; }
+    .cocaine-status { padding: 12px; min-height: 0; }
+}
+
+/* PET scan figure */
+.pet-figure {
+    margin: 22px 0;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #f0ddd5;
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+}
+
+.pet-figure img {
+    display: block;
+    width: 100%;
+    max-width: 760px;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 12px;
+}
+
+.pet-figure figcaption {
+    margin-top: 12px;
+    color: #80685b;
+    font-size: .85rem;
+    text-align: center;
+}
+
+.pet-figure .image-fallback {
+    padding: 24px;
+    background: #fff5f7;
+    border-radius: 14px;
+    text-align: center;
+}
+
+.refs {
+    padding-left: 0;
+    list-style-position: outside;
+    list-style: none;
+}
+
+.refs li {
+    margin-bottom: 18px;
+    padding-left: 36px;
+    text-indent: -36px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.refs li a {
+    overflow-wrap: anywhere;
+}
+
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="brand">♡ MIND <span>&</span> MATTER</div><nav aria-label="Main navigation">
+    <a href="#overview">Overview</a>
+    <a href="#drug-types">Drug Types</a>
+    <a href="#brain">Brain Scan</a>
+    <a href="#effects">Health Effects</a>
+    <a href="#recommendations">Prevention</a>
+    <a href="#quiz">Mini Quiz</a>
+    <a href="#conclusion">Conclusion</a>
+    <a href="#references">References</a>
+</nav><button id="soundToggle" aria-pressed="true">♫ Sound: on</button></div></header>
+<main>
+<div class="hero"><div class="hero-inner"><div><span class="eyebrow">A DIGITAL LEARNING EXPERIENCE</span><h1>Drugs, the <em>brain</em><br>& the body.</h1><p class="lead">A friendly, science-based guide to how psychoactive drugs can affect the nervous system, physical health, thoughts and behaviour.</p><a class="btn" href="#overview" style="display:inline-block;text-decoration:none;margin-top:12px">Explore the science ✿</a><p style="font-size:.82rem;color:#80685b">Created by Ahlam · Numa · Zuhayra</p></div>
+<div class="hero-art"><div class="brain">🧠</div><div class="bubble"><strong>Little science bubble 💬</strong><br>Your brain sends messages using electrical signals and chemical messengers called neurotransmitters.</div><div class="bubble"><strong>Why it matters</strong><br>Some drugs change these messages. Effects depend on the substance, dose, health and whether other substances are involved.</div></div></div></div>
+<section id="overview" class="reveal"><div class="section-head"><div class="kicker">01 · Start here</div><h2>What are psychoactive drugs?</h2><p>Psychoactive drugs are substances that act on the central nervous system and can change mood, awareness, perception, thinking or behaviour. Some are prescribed medicines; others may be illegal or harmful when misused. Research on addiction describes how repeated drug exposure can affect brain circuits involved in reward, learning and behaviour (Volkow &amp; Blanco, 2023).</p></div>
+<div class="two-col"><div class="panel"><h3>How messages travel</h3><div class="bubble">🧠 <strong>Brain cells (neurons)</strong><br>Communicate across tiny gaps called synapses.</div><div class="bubble">💌 <strong>Neurotransmitters</strong><br>Chemical messengers carry signals between cells.</div><div class="bubble">🔄 <strong>Drug action</strong><br>A substance may increase, reduce or imitate signalling—changing how the brain and body respond.</div></div><div class="callout"><h3>Important reminder 🌷</h3><p>Drug effects are not identical for everyone. They can vary with the drug, amount, route of use, age, health, and combinations with other substances. Dependence and substance use disorders are health conditions—not a character flaw.</p><p><small>Explore reliable health sources in the references section.</small></p></div></div>
+<div class="infographic">
+  <h3>Infographic: How brain cells communicate</h3>
+  <p>Neurons communicate through electrical activity and chemical messengers. A drug may change one or more steps in this process, depending on the substance.</p>
+  <div class="flowline" role="img" aria-label="Neuron sends a signal, neurotransmitter is released into the synapse, neurotransmitter binds to a receptor, and the next cell response may change">
+    <div class="flowstep"><span class="symbol">🧠</span>1. Neuron<small>An electrical signal travels along a nerve cell.</small></div>
+    <div class="flowstep"><span class="symbol">↗</span>2. Release<small>Chemical messengers are released near the synapse.</small></div>
+    <div class="flowstep"><span class="symbol">💌</span>3. Messenger<small>Neurotransmitters cross the tiny gap.</small></div>
+    <div class="flowstep"><span class="symbol">🔑</span>4. Receptor<small>A messenger interacts with a matching receptor.</small></div>
+    <div class="flowstep"><span class="symbol">🔄</span>5. Response<small>The receiving cell's activity may change.</small></div>
+  </div>
+  <p class="citation">Learning point: drugs do not all act in the same way. Their effects depend on the substance and the biological systems it affects.</p>
+</div>
+<div class="neuron-lab" id="neuronLab">
+  <h3>🧠 Interactive neuron: follow the signal</h3>
+  <p class="subcopy">Start the animation to see an electrical impulse travel along the neuron, followed by chemical messengers crossing the synapse.</p>
+  <div class="neuron-stage">
+    <svg viewBox="0 0 760 270" role="img" aria-label="Animated neuron with dendrites, axon, synapse and neurotransmitters">
+      <defs><linearGradient id="axonGrad" x1="0" x2="1"><stop offset="0" stop-color="#a69bff"/><stop offset="1" stop-color="#6d8cff"/></linearGradient><radialGradient id="somaGrad"><stop offset="0" stop-color="#e4caff"/><stop offset="1" stop-color="#8775df"/></radialGradient></defs>
+      <g class="neuron-branch"><path d="M145 133 L91 94 L57 57 M91 94 L46 103 M102 105 L82 42 M146 133 L83 159 L45 190 M83 159 L61 224 M133 115 L116 67 M143 148 L105 205"/><path d="M145 133 L205 132"/></g>
+      <circle cx="158" cy="133" r="37" fill="url(#somaGrad)" stroke="#e7dcff" stroke-width="3"/><circle cx="165" cy="130" r="13" fill="#5b4ba8" stroke="#d7caff" stroke-width="2"/>
+      <path class="neuron-path" d="M194 133 C260 130 330 138 402 133 S488 132 530 133"/>
+      <g fill="#b5aaff" stroke="#e7dcff" stroke-width="2"><rect x="235" y="112" width="45" height="42" rx="18"/><rect x="300" y="112" width="45" height="42" rx="18"/><rect x="365" y="112" width="45" height="42" rx="18"/><rect x="430" y="112" width="45" height="42" rx="18"/></g>
+      <path class="signal-line" d="M194 133 C260 130 330 138 402 133 S488 132 530 133"/>
+      <g fill="none" stroke="#ffb5ed" stroke-width="5" stroke-linecap="round"><path d="M530 133 Q555 110 568 88 M530 133 Q559 133 576 133 M530 133 Q555 158 568 180"/><path d="M568 88 l13 -12 M568 88 l-2 -16 M576 133 l15 -8 M576 133 l14 8 M568 180 l14 12 M568 180 l-1 16"/></g>
+      <path d="M598 72 Q626 54 648 73 T700 72 M598 194 Q626 212 648 193 T700 194" fill="none" stroke="#8c8aff" stroke-width="6" stroke-linecap="round"/>
+      <g class="neuro-dot"><circle cx="582" cy="107" r="6"/><circle cx="594" cy="124" r="5"/><circle cx="588" cy="151" r="6"/><circle cx="610" cy="103" r="5"/><circle cx="613" cy="160" r="5"/></g>
+      <g fill="#e8e2ff" font-size="15" font-weight="700"><text x="105" y="245" text-anchor="middle">Dendrites / cell body</text><text x="346" y="81" text-anchor="middle">Axon</text><text x="558" y="45" text-anchor="middle">Synapse</text><text x="656" y="237" text-anchor="middle">Next cell</text></g>
+    </svg>
+  </div>
+  <div class="neuron-labels" aria-label="Neuron labels"><button class="active" data-neuron="axon">Axon</button><button data-neuron="synapse">Synapse</button><button data-neuron="messenger">Neurotransmitters</button></div>
+  <div class="neuron-controls"><button id="signalStart">▶ Start signal</button><button id="signalPause" class="secondary">Ⅱ Pause</button><button id="signalReplay" class="secondary">↻ Replay</button></div>
+  <div class="neuron-caption" id="neuronCaption" aria-live="polite"><strong>Stage 1 — Axon:</strong> An electrical impulse travels along the neuron toward its axon terminal.</div>
+</div>
+</section>
+
+<div class="cocaine-lab" id="cocaineLab">
+  <h3>🧠 Cocaine vs Dopamine: Interactive Simulation</h3>
+  <p>
+    Explore how cocaine affects dopamine signalling at the synapse.
+    Select a scene to compare normal communication with the effects
+    of cocaine and repeated exposure.
+  </p>
+
+  <div class="cocaine-controls" role="group"
+       aria-label="Choose a dopamine simulation">
+    <button type="button" class="active" data-cocaine-mode="0"
+            aria-pressed="true">☀️ Normal day</button>
+    <button type="button" data-cocaine-mode="1"
+            aria-pressed="false">⚠️ With cocaine</button>
+    <button type="button" data-cocaine-mode="2"
+            aria-pressed="false">🌧️ Repeated exposure</button>
+    <button type="button" class="pause-btn" id="cocainePause"
+            aria-pressed="false">Ⅱ Pause</button>
+  </div>
+
+  <div class="cocaine-canvas-wrap">
+    <canvas id="cocaineCanvas" width="760" height="340"
+      role="img"
+      aria-label="Animated comparison of dopamine signalling in normal conditions, with cocaine blocking dopamine transporters, and after repeated exposure.">
+    </canvas>
+  </div>
+
+  <div class="cocaine-legend">
+    <span>🟢 Dopamine</span>
+    <span>🟣 Cocaine blocker</span>
+    <span>🧤 Dopamine receptor</span>
+    <span>🚪 Transporter</span>
+  </div>
+
+  <div class="cocaine-status" id="cocaineStatus" aria-live="polite">
+    <strong>☀️ Normal day</strong>
+    <p>
+      Dopamine is released into the synapse, binds to receptors,
+      and is taken back up by transporters.
+    </p>
+  </div>
+
+  <div class="cocaine-meter" aria-hidden="true">
+    <div class="cocaine-meter-fill" id="cocaineMeter"></div>
+  </div>
+  <p style="font-size:.78rem;margin-bottom:0">
+    Educational illustration only. The animation simplifies
+    biological processes and does not represent measured brain activity.
+  </p>
+</div>
+
+<section id="drug-types" class="reveal"><div class="section-head"><div class="kicker">02 · Explore the categories</div><h2>Different drugs, different effects</h2><p>Select a card to reveal a short explanation. These are broad categories; individual substances can have different risks.</p></div>
+<div class="grid">
+<div class="card"><div class="emoji">⚡</div><h3>Stimulants</h3><p>Increase activity in parts of the central nervous system.</p><span class="tag">Examples: cocaine, amphetamines</span><div style="margin-top:16px"><button class="learn" data-kind="stimulants">Open bubble ✿</button></div></div>
+<div class="card"><div class="emoji">🌙</div><h3>Depressants</h3><p>Slow certain nervous-system activity and may cause sedation.</p><span class="tag">Examples: benzodiazepines, alcohol</span><div style="margin-top:16px"><button class="learn" data-kind="depressants">Open bubble ✿</button></div></div>
+<div class="card"><div class="emoji">🩹</div><h3>Opioids</h3><p>Act on opioid receptors and can reduce pain, but may suppress breathing.</p><span class="tag">Examples: morphine, fentanyl</span><div style="margin-top:16px"><button class="learn" data-kind="opioids">Open bubble ✿</button></div></div>
+<div class="card"><div class="emoji">🌀</div><h3>Hallucinogens</h3><p>Can change perception, mood and the experience of reality.</p><span class="tag">Examples: LSD, psilocybin</span><div style="margin-top:16px"><button class="learn" data-kind="hallucinogens">Open bubble ✿</button></div></div>
+<div class="card"><div class="emoji">🍃</div><h3>Cannabis</h3><p>Can affect memory, attention, coordination and perception.</p><span class="tag">Main intoxicating compound: THC</span><div style="margin-top:16px"><button class="learn" data-kind="cannabis">Open bubble ✿</button></div></div>
+<div class="card"><div class="emoji">💊</div><h3>Medicines & misuse</h3><p>Medicines can be helpful when used as directed, but misuse can be dangerous.</p><span class="tag">Use only as prescribed</span><div style="margin-top:16px"><button class="learn" data-kind="medicines">Open bubble ✿</button></div></div>
+</div>
+<div class="detail-box" id="drugDetail" aria-live="polite" style="margin-top:22px"><strong>💬 Your learning bubble will appear here.</strong><p>Choose “Open bubble” on any card to learn about nervous-system effects and physical risks.</p></div>
+<div class="infographic">
+  <h3>Infographic: Different pathways, different risks</h3>
+  <p>These are broad patterns, not predictions for every person or every substance in a category.</p>
+  <div style="overflow-x:auto">
+  <table class="effect-table">
+    <thead><tr><th>Category</th><th>Possible nervous-system effects</th><th>Possible physical effects</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Stimulants</strong></td><td>Increased alertness or agitation; may affect judgement and sleep.</td><td>Faster heart rate, raised blood pressure and increased cardiovascular risk.</td></tr>
+      <tr><td><strong>Depressants</strong></td><td>Drowsiness, slower reactions and reduced coordination.</td><td>At high or combined doses, breathing may become dangerously slow.</td></tr>
+      <tr><td><strong>Opioids</strong></td><td>Sedation and reduced pain signalling.</td><td>Constipation, nausea and potentially dangerous suppression of breathing.</td></tr>
+      <tr><td><strong>Hallucinogens</strong></td><td>Changes in perception, mood or sense of time.</td><td>Effects can include anxiety, confusion and impaired decisions.</td></tr>
+      <tr><td><strong>Cannabis</strong></td><td>May affect short-term memory, attention, perception and coordination.</td><td>May affect reaction time; some people experience anxiety or paranoia.</td></tr>
+      <tr><td><strong>Medicines used incorrectly</strong></td><td>Effects vary with the medicine, amount and combinations.</td><td>Misuse or unsafe combinations can cause serious harm.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="citation">Interpretation: the same substance can affect people differently. Risk depends on factors such as the specific drug, amount, health, age and use of other substances.</p>
+</div>
+</section>
+<section id="brain" class="reveal"><div class="section-head"><div class="kicker">03 · Read the stimulus</div><h2>What the cocaine PET scans tell us</h2><p>The assignment image compares a person without cocaine-use disorder with a person who has cocaine-use disorder at different times after stopping use.</p></div>
+<div class="two-col"><div class="panel"><h3>Reading the three images</h3>
+<figure class="pet-figure">
+    <img
+        src="data:image/jpeg;base64,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"
+        alt="Three PET scans comparing dopamine D2 receptor availability"
+        style="width: 100%; max-width: 760px; height: auto;"
+    >
+    <figcaption>
+        Source: PET-scan figure provided in the assignment stimulus.
+    </figcaption>
+</figure>
+<div class="timeline"><div class="step"><div class="num">1</div><div><strong>Comparison subject</strong><br><span>Serves as the non-disorder comparison in the provided figure.</span></div></div><div class="step"><div class="num">2</div><div><strong>One month after use</strong><br><span>The figure reports lower availability of dopamine D₂ receptors in the striatum.</span></div></div><div class="step"><div class="num">3</div><div><strong>Four months after use</strong><br><span>The figure shows receptor availability increasing compared with one month, but not fully returning to the comparison level.</span></div></div></div></div>
+<div class="callout"><h3>💬 Bubble explanation</h3><p><strong>What are D₂ receptors?</strong><br>They are proteins that respond to dopamine, a neurotransmitter involved in motivation, movement and reward learning.</p><p><strong>Why is this important?</strong><br>Reduced D₂ receptor availability has been associated with changes in reward and control circuits. It is one finding—not a complete measure of a person's brain, behaviour or recovery.</p><p><strong>Critical thinking:</strong> The figure illustrates a group-level scientific observation. It does not prove that every individual follows the same timeline or that receptor availability alone causes loss of control.</p></div></div>
+<div class="brain-model">
+  <svg viewBox="0 0 430 230" role="img" aria-label="Stylised brain model highlighting reward and movement-related regions">
+    <defs><linearGradient id="brainPink" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd7e8"/><stop offset=".55" stop-color="#eaa8cf"/><stop offset="1" stop-color="#b77bc3"/></linearGradient></defs>
+    <path d="M210 44 C190 18 153 30 146 53 C116 42 92 65 100 89 C73 102 86 134 105 143 C95 169 121 187 144 178 C155 203 185 197 203 180 L215 169 C232 193 263 197 279 177 C305 189 331 168 321 145 C345 129 337 101 315 90 C323 62 296 42 273 53 C260 26 229 26 210 44Z" fill="url(#brainPink)" stroke="#a65e9b" stroke-width="3"/>
+    <g fill="none" stroke="#a65e9b" stroke-width="3" stroke-linecap="round"><path d="M145 55 Q174 65 158 91 T174 130 Q155 148 174 174"/><path d="M206 45 Q188 70 211 86 T199 121 T215 169"/><path d="M267 57 Q243 75 266 96 T247 130 Q270 148 258 174"/><path d="M112 95 Q137 99 128 124 M292 91 Q272 108 296 126 M143 62 Q126 75 144 86 M232 52 Q251 65 239 81"/></g>
+    <ellipse cx="211" cy="131" rx="22" ry="14" fill="#6b5fc4" opacity=".9"/><circle cx="211" cy="131" r="7" fill="#a9f5ff"/><path d="M231 132 L350 132" stroke="#6b5fc4" stroke-width="2" stroke-dasharray="4 4"/><text x="354" y="126" font-size="12" fill="#704b75" font-weight="700">Reward /</text><text x="354" y="141" font-size="12" fill="#704b75" font-weight="700">movement</text>
+  </svg>
+  <div class="brain-label">Slow floating brain illustration · highlighted region is schematic, not a medical scan</div>
+</div>
+<div class="infographic">
+  <h3>At a glance: the PET scan comparison</h3>
+  <p>The sequence below summarises what the assignment stimulus reports; it is not a prediction for every individual.</p>
+  <div class="flowline" role="img" aria-label="Comparison subject is the reference; one month after stopping cocaine receptor availability is lower; four months after stopping it has increased but remains below the comparison level">
+    <div class="flowstep pet-step"><span class="symbol">🧠</span>Comparison subject<small>Reference image in the supplied stimulus.</small></div>
+    <div class="flowstep pet-step"><span class="symbol">↓</span>One month<small>The figure reports lower D₂ receptor availability.</small></div>
+    <div class="flowstep pet-step"><span class="symbol">↗</span>Four months<small>The figure reports an increase, but not a full return to the comparison level.</small></div>
+    <div class="flowstep"><span class="symbol">🔬</span>Interpret carefully<small>One figure cannot describe every person's course.</small></div>
+    <div class="flowstep"><span class="symbol">💡</span>Key distinction<small>Receptor availability is not the same as total dopamine level.</small></div>
+  </div>
+  <div class="brain-scan-note"><strong>Critical analysis:</strong> D₂ receptors respond to dopamine and are involved in brain signalling. PET findings about receptor availability may help researchers study reward and control circuits, but they do not by themselves establish the cause of an individual's behaviour or predict recovery for every person.</div>
+</div>
+</section>
+<section id="effects" class="reveal"><div class="section-head"><div class="kicker">04 · Mind and body</div><h2>Possible effects on human health</h2><p>Effects depend on the substance and circumstances. The examples below are educational, not a diagnosis.</p></div>
+<div class="grid"><div class="card"><div class="emoji">🧠</div><h3>Nervous system</h3><p>Changes in attention, memory, judgement, sleep, coordination, mood or perception. Some substances can trigger seizures or other neurological emergencies.</p></div><div class="card"><div class="emoji">💗</div><h3>Heart & circulation</h3><p>Stimulants such as cocaine can raise heart rate and blood pressure and constrict blood vessels, increasing the risk of heart attack or stroke. Research has also examined cocaine-related changes in cerebral blood flow and neurovascular function (Clare et al., 2024).</p></div><div class="card"><div class="emoji">🌬️</div><h3>Breathing & body</h3><p>Opioids can slow breathing dangerously. Other substances may affect temperature, appetite, sleep, digestion or hydration.</p></div></div>
+<div class="callout" style="margin-top:22px"><h3>When is it an emergency?</h3><p>Chest pain, difficulty breathing, seizures, collapse, or someone who cannot be awakened needs urgent emergency help. Contact local emergency services and follow the dispatcher’s instructions.</p></div></section>
+<section id="recommendations" class="reveal"><div class="section-head"><div class="kicker">05 · Prevention and support</div><h2>Knowledge is protective</h2><p>Prevention works best when information is accurate, compassionate and connected to practical support. International reports also highlight the importance of evidence-based responses to drug-related health and social harms (United Nations Office on Drugs and Crime [UNODC], 2024).</p></div>
+<div class="grid"><div class="card"><div class="emoji">🔎</div><h3>Check sources</h3><p>Use recent, reputable health organisations and peer-reviewed research rather than rumours or social-media claims.</p></div><div class="card"><div class="emoji">🤝</div><h3>Talk without stigma</h3><p>Encourage people to seek help from a qualified healthcare professional or local substance-use support service.</p></div><div class="card"><div class="emoji">🛡️</div><h3>Reduce risk</h3><p>Do not mix substances or take medicines outside medical directions. Seek professional advice about treatment and recovery.</p></div></div></section>
+<section id="quiz" class="reveal"><div class="section-head"><div class="kicker">06 · Check what you learned</div><h2>A tiny knowledge quiz ✿</h2><p>Choose an answer to receive instant feedback. Tap “Next question” to continue.</p></div><div class="panel"><div id="qCount" class="kicker">Question 1 of 4</div><p id="question" class="quiz-question"></p><div id="answers" class="answers"></div><div id="feedback" class="feedback" aria-live="polite"></div><button id="nextQuestion">Next question →</button><span id="score" style="margin-left:12px;font-weight:800"></span></div></section>
+<section id="conclusion" class="reveal">
+  <div class="section-head"><div class="kicker">07 · Bring the ideas together</div><h2>Conclusion: Protecting the brain and body</h2>
+  <p>Understanding how drugs affect the nervous system helps explain why their effects can extend beyond mood or behaviour.</p></div>
+  <div class="conclusion">
+    <p>Psychoactive substances can alter communication between brain cells, but the effects depend on the substance and the way it affects the body. Stimulants such as cocaine can also place strain on the heart and blood vessels, while opioids can dangerously suppress breathing. Other substances may affect memory, coordination, perception or judgement.</p>
+    <p>The PET scan in the assignment stimulus illustrates a reported change in dopamine D₂ receptor availability after cocaine use. It is useful evidence for discussion, but it should not be treated as a complete measure of dopamine, behaviour or recovery for every individual.</p>
+    <p><strong>Recommendations:</strong> use accurate health information, avoid unsafe use or combinations of substances, seek advice from qualified health professionals, and respond to substance-use problems with support rather than stigma. Education, early support and evidence-based care can help reduce harm.</p>
+  </div>
+</section>
+<section id="references" class="reveal"><div class="section-head"><div class="kicker">08 · References</div><h2>Sources & further reading</h2><p>Explore the research and health resources used to explain how drugs can affect the brain and body.</p></div>
+<div class="panel"><ol class="refs">
+    <li>
+        Clare, K., Park, K., Pan, Y., Lejuez, C. W., Volkow, N. D.,
+        &amp; Du, C. (2024). Neurovascular effects of cocaine:
+        Relevance to addiction.
+        <em>Frontiers in Pharmacology, 15</em>, Article 1357422.
+        <a href="https://doi.org/10.3389/fphar.2024.1357422"
+           target="_blank" rel="noopener">
+            https://doi.org/10.3389/fphar.2024.1357422
+        </a>
+    </li>
+
+    <li>
+        United Nations Office on Drugs and Crime. (2024).
+        <em>World drug report 2024.</em>
+        <a href="https://www.unodc.org/unodc/en/data-and-analysis/world-drug-report-2024.html"
+           target="_blank" rel="noopener">
+            https://www.unodc.org/unodc/en/data-and-analysis/world-drug-report-2024.html
+        </a>
+    </li>
+
+    <li>
+        Substance Abuse and Mental Health Services Administration. (2024).
+        <em>Key substance use and mental health indicators in the United States:
+        Results from the 2023 National Survey on Drug Use and Health.</em>
+        <a href="https://www.samhsa.gov/data/report/2023-nsduh-annual-national-report"
+           target="_blank" rel="noopener">
+            https://www.samhsa.gov/data/report/2023-nsduh-annual-national-report
+        </a>
+    </li>
+
+    <li>
+        Volkow, N. D., &amp; Blanco, C. (2023). Substance use disorders:
+        A comprehensive update of classification, epidemiology,
+        neurobiology, clinical aspects, treatment and prevention.
+        <em>World Psychiatry, 22</em>(2), 203–229.
+        <a href="https://doi.org/10.1002/wps.21073"
+           target="_blank" rel="noopener">
+            https://doi.org/10.1002/wps.21073
+        </a>
+    </li>
+
+    <li>
+        World Health Organization. (2024).
+        <em>Global status report on alcohol and health and treatment
+        of substance use disorders.</em>
+        <a href="https://www.who.int/publications/i/item/9789240096745"
+           target="_blank" rel="noopener">
+            https://www.who.int/publications/i/item/9789240096745
+        </a>
+    </li>
+</ol>
+</div></section>
+</main>
+<footer><p><strong>Mind & Matter ♡</strong></p><p>Digital multimedia assignment · Group members: Ahlam, Numa and Zuhayra</p><p style="font-size:.82rem;opacity:.8">Educational information only · Not a substitute for professional medical advice</p></footer>
+<script>
+let soundOn=true,audioCtx;
+function blip(){if(!soundOn)return;try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();const now=audioCtx.currentTime;[660,880].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,now+i*.07);g.gain.exponentialRampToValueAtTime(.07,now+i*.07+.015);g.gain.exponentialRampToValueAtTime(.0001,now+i*.07+.13);o.connect(g);g.connect(audioCtx.destination);o.start(now+i*.07);o.stop(now+i*.07+.15)})}catch(e){}}
+document.getElementById('soundToggle').addEventListener('click',e=>{soundOn=!soundOn;e.currentTarget.textContent='♫ Sound: '+(soundOn?'on':'off');e.currentTarget.setAttribute('aria-pressed',String(soundOn));if(soundOn)blip()});
+document.querySelectorAll('button,.btn,a[href^="#"]').forEach(el=>el.addEventListener('click',()=>{if(el.id!=='soundToggle')blip()}));
+const info={
+stimulants:['⚡ Stimulants','They can increase alertness and energy, but may also cause anxiety, agitation, faster heart rate, high blood pressure and overheating. Cocaine constricts blood vessels and can raise the risk of heart attack or stroke.'],
+depressants:['🌙 Depressants','They slow some central nervous system activity. Possible effects include drowsiness, slower reaction time and poor coordination. High doses—especially with alcohol or opioids—can dangerously suppress breathing.'],
+opioids:['🩹 Opioids','They bind to opioid receptors and can relieve pain. They can also cause sedation, constipation and nausea; overdose can slow or stop breathing. Follow prescribed directions and seek urgent help for suspected overdose.'],
+hallucinogens:['🌀 Hallucinogens','They can alter perception, mood and the sense of time. Effects can be unpredictable and may include panic, confusion or unsafe decisions. Risk varies by substance, setting and the individual.'],
+cannabis:['🍃 Cannabis','THC can affect short-term memory, attention, coordination and reaction time. Some people experience anxiety or paranoia. Driving while impaired is dangerous, and risks vary with age, frequency and potency.'],
+medicines:['💊 Medicines & misuse','Medicines can treat illness when used appropriately. Taking more than prescribed, using someone else’s medicine or combining substances without advice can cause serious harm. Ask a pharmacist or clinician if unsure.']
+};
+document.querySelectorAll('.learn').forEach(b=>b.addEventListener('click',()=>{const d=info[b.dataset.kind];document.getElementById('drugDetail').innerHTML='<strong>'+d[0]+'</strong><p>'+d[1]+'</p><small>💗 Remember: effects vary and the risk can be serious.</small>';document.getElementById('drugDetail').scrollIntoView({behavior:'smooth',block:'nearest'})}));
+const questions=[
+{q:'Which chemical messenger is strongly involved in reward and motivation?',a:['Dopamine','Insulin','Melanin'],c:0,why:'Dopamine is involved in reward learning, motivation and movement.'},
+{q:'What is one serious physical risk of cocaine?',a:['Lower blood pressure in every person','Heart attack or stroke','Instantly improved judgement'],c:1,why:'Cocaine can raise blood pressure and constrict blood vessels, increasing cardiovascular risk.'},
+{q:'What is a major danger of opioid overdose?',a:['Breathing may slow dangerously','Hair grows faster','Improved coordination'],c:0,why:'Opioids can suppress breathing, which can be fatal without urgent help.'},
+{q:'Which statement about substance use disorder is most accurate?',a:['It is only a lack of willpower','It is a health condition influenced by multiple factors','Everyone has identical effects'],c:1,why:'Substance use disorder is a health condition; effects and recovery vary between people.'}
+];let qi=0,score=0,answered=false;
+function renderQ(){answered=false;const q=questions[qi];document.getElementById('qCount').textContent=`Question ${qi+1} of ${questions.length}`;document.getElementById('question').textContent=q.q;document.getElementById('feedback').textContent='';document.getElementById('score').textContent=`Score: ${score}/${questions.length}`;const wrap=document.getElementById('answers');wrap.innerHTML='';q.a.forEach((ans,i)=>{const b=document.createElement('button');b.textContent=ans;b.addEventListener('click',()=>{if(answered)return;answered=true;if(i===q.c){score++;document.getElementById('feedback').textContent='Correct! ♡ '+q.why}else document.getElementById('feedback').textContent='Not quite. '+q.why;document.getElementById('score').textContent=`Score: ${score}/${questions.length}`;wrap.querySelectorAll('button').forEach(x=>x.disabled=true);blip()});wrap.appendChild(b)});document.getElementById('nextQuestion').textContent=qi===questions.length-1?'See results ✿':'Next question →'}
+document.getElementById('nextQuestion').addEventListener('click',()=>{if(qi<questions.length-1){qi++;renderQ()}else{document.getElementById('question').textContent=`You scored ${score} out of ${questions.length}!`;document.getElementById('answers').innerHTML='';document.getElementById('feedback').textContent=score===questions.length?'Perfect score! Great work. ♡':'Good effort—review the bubbles and try again!';document.getElementById('nextQuestion').textContent='Try again';document.getElementById('nextQuestion').onclick=()=>{qi=0;score=0;document.getElementById('nextQuestion').onclick=null;renderQ()}}blip()});renderQ();
+// Interactive neuron simulation controls and stage-by-stage explanations
+const neuronLab=document.getElementById('neuronLab');
+const neuronCaption=document.getElementById('neuronCaption');
+const neuronStages={axon:'<strong>Stage 1 — Axon:</strong> An electrical impulse travels along the neuron toward its axon terminal.',synapse:'<strong>Stage 2 — Synapse:</strong> At the terminal, the signal leads to chemical communication across the tiny gap between cells.',messenger:'<strong>Stage 3 — Neurotransmitters:</strong> Chemical messengers cross the synapse and bind to matching receptors on the next cell.'};
+let neuronTimer=null,neuronStageIndex=0;
+function setNeuronStage(key){neuronCaption.innerHTML=neuronStages[key];document.querySelectorAll('.neuron-labels button').forEach(b=>b.classList.toggle('active',b.dataset.neuron===key));}
+function stopNeuronTimer(){if(neuronTimer){clearInterval(neuronTimer);neuronTimer=null;}}
+function startNeuron(){stopNeuronTimer();neuronLab.classList.remove('paused');const keys=['axon','synapse','messenger'];setNeuronStage(keys[neuronStageIndex%3]);neuronTimer=setInterval(()=>{neuronStageIndex=(neuronStageIndex+1)%3;setNeuronStage(keys[neuronStageIndex]);},2600);}
+document.getElementById('signalStart').addEventListener('click',()=>{startNeuron();blip()});
+document.getElementById('signalPause').addEventListener('click',()=>{stopNeuronTimer();neuronLab.classList.add('paused');blip()});
+document.getElementById('signalReplay').addEventListener('click',()=>{neuronStageIndex=0;startNeuron();blip()});
+document.querySelectorAll('.neuron-labels button').forEach(b=>b.addEventListener('click',()=>{stopNeuronTimer();neuronLab.classList.add('paused');setNeuronStage(b.dataset.neuron);neuronStageIndex=['axon','synapse','messenger'].indexOf(b.dataset.neuron);blip()}));
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* Interactive cocaine and dopamine simulation */
+(() => {
+  const canvas = document.getElementById('cocaineCanvas');
+  const lab = document.getElementById('cocaineLab');
+
+  if (!canvas || !lab) return;
+
+  const ctx = canvas.getContext('2d');
+  const status = document.getElementById('cocaineStatus');
+  const meter = document.getElementById('cocaineMeter');
+  const pauseButton = document.getElementById('cocainePause');
+  const modeButtons = lab.querySelectorAll('[data-cocaine-mode]');
+
+  const W = 760;
+  const H = 340;
+
+  const descriptions = [
+    {
+      title: '☀️ Normal day',
+      text: 'Dopamine is released into the synapse, binds to receptors, and is taken back up by transporters. This helps regulate the signal.'
+    },
+    {
+      title: '⚠️ With cocaine',
+      text: 'Cocaine blocks dopamine transporters. Dopamine can accumulate in the synapse and stimulate receptors for longer than usual.'
+    },
+    {
+      title: '🌧️ Repeated exposure',
+      text: 'Repeated cocaine exposure can lead to adaptations in brain signalling, including changes in dopamine receptors and reward-related circuits. These changes vary between individuals.'
+    }
+  ];
+
+  let mode = 0;
+  let paused = false;
+  let animationId = 0;
+  let lastTime = 0;
+  let elapsed = 0;
+  let spawnTimer = 0;
+  let dots = [];
+  let blockers = [];
+
+  const reducedMotion =
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const receptorPositions = [245, 335, 425, 515];
+
+  function setMode(nextMode) {
+    mode = nextMode;
+    dots = [];
+    blockers = [];
+    spawnTimer = 0;
+
+    modeButtons.forEach(button => {
+      const selected = Number(button.dataset.cocaineMode) === mode;
+      button.classList.toggle('active', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+
+    status.innerHTML =
+      '<strong>' + descriptions[mode].title + '</strong><p>' +
+      descriptions[mode].text + '</p>';
+
+    if (mode === 1) {
+      blockers = [115, 645].map(x => ({
+        x,
+        y: 112,
+        pulse: Math.random() * Math.PI * 2
+      }));
+    }
+
+    draw();
+  }
+
+  modeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      setMode(Number(button.dataset.cocaineMode));
+    });
+  });
+
+  pauseButton.addEventListener('click', () => {
+    paused = !paused;
+    pauseButton.textContent = paused ? '▶ Play' : 'Ⅱ Pause';
+    pauseButton.setAttribute('aria-pressed', String(paused));
+
+    if (!paused) {
+      lastTime = 0;
+      animationId = requestAnimationFrame(loop);
+    } else {
+      cancelAnimationFrame(animationId);
+    }
+  });
+
+  function spawnDots() {
+    const amount = mode === 2 ? 2 : 4;
+
+    for (let i = 0; i < amount; i++) {
+      dots.push({
+        x: 290 + Math.random() * 180,
+        y: 130 + Math.random() * 28,
+        vx: (Math.random() - 0.5) * 1.5,
+        vy: 0.8 + Math.random() * 0.8,
+        age: 0,
+        state: 'moving',
+        hold: 0,
+        receptor: -1
+      });
+    }
+
+    if (dots.length > 70) {
+      dots.splice(0, dots.length - 70);
+    }
+  }
+
+  function roundedRect(x, y, w, h, r, color) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.roundRect(x, y, w, h, r);
+    ctx.fill();
+  }
+
+  function drawNeuron() {
+    // Presynaptic terminal
+    roundedRect(35, 42, 690, 105, 38, '#37305f');
+
+    ctx.fillStyle = '#e6dcff';
+    ctx.font = 'bold 16px Trebuchet MS, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('SENDING NEURON', 380, 70);
+
+    // Vesicles
+    [100, 150, 200, 560, 610, 660].forEach((x, i) => {
+      ctx.beginPath();
+      ctx.fillStyle = '#7568bd';
+      ctx.arc(x, 112 + (i % 2) * 8, 11, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.fillStyle = '#9bf1d0';
+      ctx.arc(x, 112 + (i % 2) * 8, 4, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Synaptic gap
+    roundedRect(35, 158, 690, 94, 20, '#211d42');
+
+    ctx.fillStyle = '#cfc5ff';
+    ctx.font = '13px Trebuchet MS, sans-serif';
+    ctx.fillText('SYNAPTIC GAP', 380, 181);
+
+    // Receiving neuron
+    roundedRect(35, 266, 690, 49, 20, '#49345d');
+
+    ctx.fillStyle = '#f6dff5';
+    ctx.font = 'bold 14px Trebuchet MS, sans-serif';
+    ctx.fillText('RECEIVING NEURON', 380, 301);
+
+    // Transporters
+    [115, 645].forEach(x => {
+      roundedRect(x - 17, 137, 34, 28, 8, '#78a9ff');
+
+      ctx.fillStyle = '#17264d';
+      ctx.font = 'bold 17px sans-serif';
+      ctx.fillText('↕', x, 157);
+
+      if (mode === 1) {
+        roundedRect(x - 25, 132, 50, 16, 7, '#b48aff');
+
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 9px Trebuchet MS, sans-serif';
+        ctx.fillText('BLOCKED', x, 143);
+      }
+    });
+
+    // Receptors along the receiving membrane
+    receptorPositions.forEach((x, i) => {
+      const hidden = mode === 2 && i % 2 === 0;
+
+      ctx.strokeStyle = hidden ? '#615774' : '#ff9ddd';
+      ctx.lineWidth = 6;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(x - 9, 263);
+      ctx.lineTo(x - 9, 247);
+      ctx.quadraticCurveTo(x, 234, x + 9, 247);
+      ctx.lineTo(x + 9, 263);
+      ctx.stroke();
+
+      if (hidden) {
+        ctx.strokeStyle = '#9d91b0';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(x - 12, 241);
+        ctx.lineTo(x + 12, 262);
+        ctx.stroke();
+      }
+    });
+
+    if (mode === 2) {
+      ctx.fillStyle = '#e2d4f5';
+      ctx.font = '12px Trebuchet MS, sans-serif';
+      ctx.fillText('Fewer available receptors shown schematically', 380, 329);
+    }
+  }
+
+  function drawBlockers() {
+    blockers.forEach(blocker => {
+      const bob = Math.sin(elapsed * 0.002 + blocker.pulse) * 3;
+
+      ctx.save();
+      ctx.translate(blocker.x, 117 + bob);
+      ctx.rotate(Math.sin(elapsed * 0.001) * 0.08);
+
+      roundedRect(-20, -14, 40, 27, 9, '#bd8cff');
+
+      ctx.fillStyle = '#34224f';
+      ctx.font = 'bold 10px Trebuchet MS, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('COC', 0, 3);
+
+      ctx.restore();
+    });
+  }
+
+  function drawDots() {
+    dots.forEach(dot => {
+      ctx.save();
+
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = dot.state === 'bound' ? '#ffe68a' : '#64ffd0';
+
+      ctx.beginPath();
+      ctx.fillStyle = dot.state === 'bound' ? '#ffe68a' : '#64ffd0';
+      ctx.arc(dot.x, dot.y, dot.state === 'bound' ? 7 : 5.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    const bg = ctx.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0, '#27234c');
+    bg.addColorStop(1, '#15142d');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    drawNeuron();
+    drawBlockers();
+    drawDots();
+  }
+
+  function update(delta) {
+    elapsed += delta;
+    spawnTimer += delta;
+
+    const spawnEvery = mode === 1 ? 430 : 760;
+
+    if (spawnTimer >= spawnEvery) {
+      spawnTimer = 0;
+      spawnDots();
+    }
+
+    dots.forEach(dot => {
+      dot.age += delta;
+
+      if (dot.state === 'moving') {
+        dot.x += dot.vx * delta * 0.055;
+        dot.y += dot.vy * delta * 0.055;
+
+        if (dot.x < 55 || dot.x > 705) {
+          dot.vx *= -1;
+        }
+
+        // Dopamine reaches the receptor area
+        if (dot.y >= 235) {
+          let nearest = -1;
+          let distance = Infinity;
+
+          receptorPositions.forEach((x, index) => {
+            if (mode === 2 && index % 2 === 0) return;
+
+            const d = Math.abs(dot.x - x);
+            if (d < distance) {
+              distance = d;
+              nearest = index;
+            }
+          });
+
+          if (nearest !== -1 && distance < 24) {
+            dot.state = 'bound';
+            dot.receptor = nearest;
+            dot.x = receptorPositions[nearest];
+            dot.y = 235;
+            dot.hold = mode === 1 ? 1500 : 500;
+          } else if (mode !== 1 && dot.age > 900) {
+            dot.state = 'returning';
+          } else {
+            dot.y = 232;
+            dot.vy = -Math.abs(dot.vy || 0.8);
+          }
+        }
+
+        // In the cocaine mode, more dots remain in the gap
+        if (mode === 1 && dot.age > 4000) {
+          dot.state = 'returning';
+        }
+      } else if (dot.state === 'bound') {
+        dot.hold -= delta;
+
+        if (dot.hold <= 0) {
+          dot.state = mode === 1 ? 'moving' : 'returning';
+          dot.vy = -0.8;
+        }
+      } else if (dot.state === 'returning') {
+        const targetX = dot.x < 380 ? 115 : 645;
+        const targetY = 145;
+
+        const dx = targetX - dot.x;
+        const dy = targetY - dot.y;
+        const distance = Math.hypot(dx, dy) || 1;
+
+        dot.x += dx / distance * delta * 0.06;
+        dot.y += dy / distance * delta * 0.06;
+
+        if (distance < 10 || dot.age > 6000) {
+          dot.dead = true;
+        }
+      }
+    });
+
+    dots = dots.filter(dot => !dot.dead);
+
+    const boundCount = dots.filter(dot => dot.state === 'bound').length;
+    const gapCount = dots.filter(dot =>
+      dot.y > 158 && dot.y < 252
+    ).length;
+
+    // Illustrative relative activity indicator, not a measured value
+    let activity = Math.min(100, gapCount * 5 + boundCount * 8);
+
+    if (mode === 1) activity = Math.min(100, activity * 1.3);
+    if (mode === 2) activity = Math.min(100, activity * 0.65);
+
+    meter.style.width = activity + '%';
+  }
+
+  function loop(timestamp) {
+    if (paused) return;
+
+    if (!lastTime) lastTime = timestamp;
+    const delta = Math.min(timestamp - lastTime, 40);
+    lastTime = timestamp;
+
+    if (!reducedMotion) {
+      update(delta);
+    } else {
+      // Keep the scene readable when reduced motion is requested
+      update(0);
+    }
+
+    draw();
+    animationId = requestAnimationFrame(loop);
+  }
+
+  setMode(0);
+  animationId = requestAnimationFrame(loop);
+})();
+
+</script>
+</body></html>
